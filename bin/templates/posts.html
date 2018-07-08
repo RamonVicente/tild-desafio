@@ -1,0 +1,92 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="index" class="content pure-u-1 pure-u-md-3-4">
+    <div>
+        <!-- A wrapper for all the blog posts -->
+        <div class="posts">
+            <h1 class="content-subhead">Recent Posts</h1>
+
+            <section class="post" th:each="post : ${posts}">
+                <header class="post-header">
+                    <img width="48" height="48" alt="" class="post-avatar"
+                         src="https://cdn2.iconfinder.com/data/icons/starwars/icons/128/clone-old.png"/>
+
+                    <h2 class="post-title" th:text="${post.title}"></h2>
+
+                    <p class="post-meta">
+                        By <a class="post-author" target="_blank" th:href="${post.user.getTwitterUrl()}"
+                              th:text="${post.user.name}"></a> under
+                        <a class="post-category post-category-js" href="#">MULTIPLE</a>
+                        <a class="post-category post-category-yui" href="#">FUTURE TAG</a>
+                    </p>
+                </header>
+
+                <div class="post-description" th:utext="${post.text}"></div>
+                <br>
+                <!--  <p>See all posts written by <a th:text="${post.user.name}" href="#" th:href="@{/users/{link}(link=${post.user.id})}"></a></p>-->
+            </section>
+
+        </div>
+
+    </div>
+</div>
+
+<div th:fragment="new" class="content pure-u-1 pure-u-md-3-4">
+    <div>
+        <div class="posts">
+            <h1 class="content-subhead">New Post</h1>
+
+            <form class="pure-form pure-form-aligned" method="post" action="/posts" th:object="${newPost}" onsubmit="postForm()">
+                <fieldset>
+                    <div class="pure-control-group">
+                        <label for="user">User</label>
+                        <select id="user" class="pure-input-1-2" th:field="*{user}">
+                            <option value="0"></option>
+                            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+                        </select>
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="title">Title</label>
+                        <input id="title" class="pure-input-3-4" type="text" placeholder="Title" th:field="*{title}"/>
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="title">Post</label>
+                        <div class="pure-u-3-4">
+                            <textarea id="summernote" th:field="*{text}"></textarea>
+
+                            <script>
+                                $(document).ready(function () {
+                                    $('#summernote').summernote({
+                                        height: 300,
+                                        airMode: false,
+                                        toolbar: [
+                                            ['style', ['bold', 'italic', 'underline', 'clear']],
+                                            ['fontsize', ['fontsize']],
+                                            ['font', ['strikethrough', 'superscript', 'subscript']],
+                                            ['para', ['style', 'ul', 'ol', 'paragraph']]
+                                        ]
+                                    });
+                                });
+
+                                var postForm = function () {
+                                    var content = $('#summernote').html($('#summernote').code());
+                                }
+                            </script>
+                        </div>
+                    </div>
+
+                    <div class="pure-controls">
+                        <button type="submit" class="pure-button pure-button-primary">Submit</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
