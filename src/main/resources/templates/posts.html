@@ -24,8 +24,7 @@
                 </header>
 
                 <div class="post-description" th:utext="${post.text}"></div>
-                <br>
-                <!--  <p>See all posts written by <a th:text="${post.user.name}" href="#" th:href="@{/users/{link}(link=${post.user.id})}"></a></p>-->
+                <p>See here all <a th:text="${post.user.name}" href="#" th:href="@{/users/{id}(id=${post.user.id})}"></a>posts</p>
             </section>
 
         </div>
