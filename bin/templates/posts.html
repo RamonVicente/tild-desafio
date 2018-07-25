@@ -9,17 +9,19 @@
             <h1 class="content-subhead">Recent Posts</h1>
 
             <section class="post" th:each="post : ${posts}">
-                <header class="post-header">
+                <header class="post-header" style="display:inline;">
                     <img width="48" height="48" alt="" class="post-avatar"
                          src="https://cdn2.iconfinder.com/data/icons/starwars/icons/128/clone-old.png"/>
 
                     <h2 class="post-title" th:text="${post.title}"></h2>
-
-                    <p class="post-meta">
+					
+                    <p class="post-meta" style="display:inline;">
                         By <a class="post-author" target="_blank" th:href="${post.user.getTwitterUrl()}"
                               th:text="${post.user.name}"></a> under
                         <a class="post-category post-category-js" href="#">MULTIPLE</a>
-                        <a class="post-category post-category-yui" href="#">FUTURE TAG</a>
+                    </p>
+                    <p style="display:inline;" th:each="tag : ${post.tags}">
+                        <a class="post-category post-category-yui" href="#" th:text="${tag.name}"></a>
                     </p>
                 </header>
 
@@ -44,6 +46,22 @@
                         <select id="user" class="pure-input-1-2" th:field="*{user}">
                             <option value="0"></option>
                             <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+                        </select>
+                    </div>
+                    
+                    <div class="pure-control-group">
+                        <label for="tag">Tag1</label>
+                        <select id="tag" class="pure-input-1-2" th:field="*{tags}">
+                            <option value="0"></option>
+                            <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}"></option>
+                        </select>
+                    </div>
+                    
+                    <div class="pure-control-group">
+                        <label for="tag1">Tag2</label>
+                        <select id="tag1" class="pure-input-1-2" th:field="*{tags}">
+                            <option value="0"></option>
+                            <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}"></option>
                         </select>
                     </div>
 
@@ -74,6 +92,7 @@
                                 var postForm = function () {
                                     var content = $('#summernote').html($('#summernote').code());
                                 }
+                                
                             </script>
                         </div>
                     </div>
