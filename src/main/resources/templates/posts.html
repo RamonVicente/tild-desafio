@@ -48,22 +48,6 @@
                             <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
                         </select>
                     </div>
-                    
-                    <div class="pure-control-group">
-                        <label for="tag">Tag1</label>
-                        <select id="tag" class="pure-input-1-2" th:field="*{tags}">
-                            <option value="0"></option>
-                            <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}"></option>
-                        </select>
-                    </div>
-                    
-                    <div class="pure-control-group">
-                        <label for="tag1">Tag2</label>
-                        <select id="tag1" class="pure-input-1-2" th:field="*{tags}">
-                            <option value="0"></option>
-                            <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}"></option>
-                        </select>
-                    </div>
 
                     <div class="pure-control-group">
                         <label for="title">Title</label>
@@ -96,6 +80,18 @@
                             </script>
                         </div>
                     </div>
+                    
+                    <div class="pure-control-group">
+                    <label for="newTag"></label>
+                    <button type="button" id="newTag">Add Tag</button>
+                    <br></br>
+                    	<label for="tag"></label>
+                        <select id="tag" class="pure-input-1-2 tagSelect" th:field="*{tags}">
+                            <option value="0"></option>
+                            <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}"></option>
+                        </select>
+                    </div>
+                    <div id="tags"></div>
 
                     <div class="pure-controls">
                         <button type="submit" class="pure-button pure-button-primary">Submit</button>
@@ -103,6 +99,40 @@
                 </fieldset>
             </form>
         </div>
+        <script>
+        
+	    	document.getElementById("newTag").addEventListener("click", addTag);
+	    	
+	    	function addTag(){
+	    		
+	    		let tagField = document.getElementById("tags"); 
+	    		
+	    		let divField = document.createElement("div");
+	    		divField.setAttribute("class", "pure-control-group");
+	    		
+	    		let labelField = document.createElement("label");
+	    		labelField.setAttribute("for", "tag");
+	    		
+	    		let selectField = document.createElement("select");
+	    		//selectField.setAttribute("class", "tagSelect");
+	    		selectField.setAttribute("id", "tag");
+	    		selectField.setAttribute("class", "pure-input-1-2 tagSelect");
+	    		selectField.setAttribute("name", "tags");
+	    		
+	    		tagField.appendChild(divField);
+	    		divField.appendChild(labelField);
+	    		divField.appendChild(selectField);
+	    		
+	    		let options = document.getElementsByClassName("tagSelect");
+	    		
+	    		[].forEach.call(options, function(option){
+	    			option.innerHTML = '<option value="0"></option>'+
+	    			'<option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}"></option>';
+	    		});
+	    		
+	    		
+	    	}
+	    </script>
     </div>
 </div>
 

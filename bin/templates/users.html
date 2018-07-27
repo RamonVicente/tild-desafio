@@ -24,8 +24,28 @@
                     </div>
                 </fieldset>
             </form>
+            <br></br>
+            <table id="table_id" class="display">
+			    <thead>
+			        <tr>
+			            <th>Nome</th>
+			            <th>Twitter</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <tr th:each="user : ${users}">
+			            <td th:text="${user.name}"></td>
+			            <td th:text="${user.twitter}"></td>
+			        </tr>
+			    </tbody>
+			</table>
         </div>
     </div>
+    <script>
+		$(document).ready( function () {
+		    $('#table_id').DataTable();
+		} );
+	</script>
 </div>
 
 <div th:fragment="userPosts" class="content pure-u-1 pure-u-md-3-4">

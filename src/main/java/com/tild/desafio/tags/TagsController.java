@@ -24,6 +24,7 @@ public class TagsController {
 	@GetMapping("/newTag")
     public ModelAndView newTag(){
         ModelAndView modelView = new ModelAndView("newTag");
+        modelView.addObject("tags", tagRepository.findAll());
         modelView.addObject("newTag",new Tag());
         return modelView;
     }
@@ -34,7 +35,7 @@ public class TagsController {
 		if(tag.isValid()) {
 			tagRepository.save(tag);
 		}
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/tags/newTag");
     }
 	
 }

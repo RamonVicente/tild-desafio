@@ -26,6 +26,7 @@ public class UsersController {
 	@GetMapping("/newUser")
     public ModelAndView newUser(){
         ModelAndView modelView = new ModelAndView("newUser");
+        modelView.addObject("users", userRepository.findAll());
         modelView.addObject("newUser",new User());
         return modelView;
     }

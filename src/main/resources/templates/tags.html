@@ -19,7 +19,25 @@
                     </div>
                 </fieldset>
             </form>
-        </div>
+            <br></br>
+            <table id="table_id" class="display">
+			    <thead>
+			        <tr>
+			            <th>Tags Cadastradas</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <tr th:each="tag : ${tags}">
+			            <td th:text="${tag.name}"></td>
+			        </tr>
+			    </tbody>
+			</table>
+            <script>
+				$(document).ready( function () {
+				    $('#table_id').DataTable();
+				} );
+			</script>
+		        </div>
     </div>
 </div>
 
